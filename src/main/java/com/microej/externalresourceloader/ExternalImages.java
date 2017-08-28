@@ -5,10 +5,11 @@
  * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
  */
 
-package com.is2t.example.externalresourceloader;
+package com.microej.externalresourceloader;
 
-import ej.microui.io.Display;
-import ej.microui.io.Displayable;
+import ej.microui.MicroUI;
+import ej.microui.display.Display;
+import ej.microui.display.Displayable;
 
 public final class ExternalImages {
 
@@ -17,6 +18,7 @@ public final class ExternalImages {
 	}
 
 	public static void main(String[] args) {
+		MicroUI.start();
 		Display display = Display.getDefaultDisplay();
 		Displayable displayable = new ExternalImagesDisplayable(display);
 		displayable.show();
