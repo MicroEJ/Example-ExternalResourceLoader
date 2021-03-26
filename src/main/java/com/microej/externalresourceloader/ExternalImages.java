@@ -1,8 +1,6 @@
 /*
- * Java
- *
- * Copyright 2015 IS2T. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
+ * Copyright 2015-2021 MicroEJ Corp. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 
 package com.microej.externalresourceloader;
@@ -19,8 +17,8 @@ public final class ExternalImages {
 
 	public static void main(String[] args) {
 		MicroUI.start();
-		Display display = Display.getDefaultDisplay();
+		Display display = Display.getDisplay();
 		Displayable displayable = new ExternalImagesDisplayable(display);
-		displayable.show();
+		display.requestShow(displayable);
 	}
 }

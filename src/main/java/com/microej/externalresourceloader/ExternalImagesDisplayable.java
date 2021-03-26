@@ -1,22 +1,21 @@
 /*
- * Java
- *
- * Copyright 2015 IS2T. All rights reserved.
- * Use of this source code is governed by a BSD-style license that can be found at http://www.is2t.com/open-source-bsd-license/.
+ * Copyright 2015-2021 MicroEJ Corp. All rights reserved.
+ * Use of this source code is governed by a BSD-style license that can be found with this software.
  */
 
 package com.microej.externalresourceloader;
 
-import java.io.IOException;
-
+import ej.microui.MicroUIException;
 import ej.microui.display.Colors;
 import ej.microui.display.Display;
 import ej.microui.display.Displayable;
+import ej.microui.display.Font;
 import ej.microui.display.GraphicsContext;
-import ej.microui.display.Image;
+import ej.microui.display.Painter;
+import ej.microui.display.ResourceImage;
 import ej.microui.event.Event;
+import ej.microui.event.EventHandler;
 import ej.microui.event.generator.Pointer;
-import ej.microui.util.EventHandler;
 
 /**
  * This displayable displays some images supposed to be in the external resources. At each press on the screen the image
@@ -24,8 +23,7 @@ import ej.microui.util.EventHandler;
  */
 public class ExternalImagesDisplayable extends Displayable implements EventHandler {
 
-	private static final String[] EXTERNAL_IMAGES = new String[] { "/images/is2t_logo.png",
-			"/images/microej_logo.png" };
+	private static final String[] EXTERNAL_IMAGES = new String[] { "/images/logo.png", "/images/robot.png" };
 	private static final String IMAGE_NOT_FOUND = "Image not found.";
 	private static final int BACKGROUND_COLOR = Colors.WHITE;
 	private static final int TEXT_COLOR = Colors.BLACK;
@@ -34,10 +32,10 @@ public class ExternalImagesDisplayable extends Displayable implements EventHandl
 	private final int displayWidth;
 	private final int displayHeight;
 	private int imageIndex;
-	private Image image;
+	private ResourceImage image;
 
 	public ExternalImagesDisplayable(Display display) {
-		super(display);
+		super();
 		this.displayWidth = display.getWidth();
 		this.displayHeight = display.getHeight();
 		// to begin with the first image.
@@ -51,46 +49,48 @@ public class ExternalImagesDisplayable extends Displayable implements EventHandl
 		if (this.imageIndex >= EXTERNAL_IMAGES.length) {
 			this.imageIndex = 0;
 		}
+
 		try {
-			this.image = Image.createImage(EXTERNAL_IMAGES[this.imageIndex]);
-		} catch (IOException e) {
+			this.image = ResourceImage.loadImage(EXTERNAL_IMAGES[this.imageIndex]);
+		} catch (MicroUIException e) {
 			this.image = null;
 		}
-		repaint();
+
+		requestRender();
 	}
 
 	@Override
-	public void paint(GraphicsContext g) {
+	public void render(GraphicsContext g) {
 		// Draws the background.
 		g.setColor(BACKGROUND_COLOR);
-		g.fillRect(0, 0, this.displayWidth, this.displayHeight);
+		Painter.fillRectangle(g, 0, 0, this.displayWidth, this.displayHeight);
 
 		// Draws image path.
 		g.setColor(TEXT_COLOR);
 
 		int halfDisplayWidth = this.displayWidth / 2;
+
 		int halfDisplayHeight = this.displayHeight / 2;
-		g.drawString(EXTERNAL_IMAGES[this.imageIndex], halfDisplayWidth, IMAGE_PATH_MARGIN,
-				GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+
+		Painter.drawString(g, EXTERNAL_IMAGES[this.imageIndex], Font.getDefaultFont(),
+				halfDisplayWidth - Font.getDefaultFont().stringWidth(EXTERNAL_IMAGES[this.imageIndex]) / 2,
+				IMAGE_PATH_MARGIN - Font.getDefaultFont().getHeight() / 2);
 
 		// Draws the image if it found otherwise a message with a warning.
 		if (this.image != null) {
-			g.drawImage(this.image, halfDisplayWidth, halfDisplayHeight,
-					GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+			Painter.drawImage(g, this.image, halfDisplayWidth - this.image.getWidth() / 2,
+					halfDisplayHeight - this.image.getHeight() / 2);
 		} else {
-			g.drawString(IMAGE_NOT_FOUND, halfDisplayWidth, halfDisplayHeight,
-					GraphicsContext.HCENTER | GraphicsContext.VCENTER);
+			Painter.drawString(g, IMAGE_NOT_FOUND, Font.getDefaultFont(),
+					halfDisplayWidth - Font.getDefaultFont().stringWidth(IMAGE_NOT_FOUND) / 2,
+					halfDisplayHeight - Font.getDefaultFont().getHeight() / 2);
 		}
 	}
 
 	@Override
-	public EventHandler getController() {
-		return this;
-	}
-
-	@Override
 	public boolean handleEvent(int event) {
-		if (Event.getType(event) == Event.POINTER && Pointer.isPressed(event)) {
+		if (Event.getType(event) == Pointer.EVENT_TYPE && Pointer.isPressed(event)) {
+			this.image.close();
 			changeImage();
 		}
 		return true;
