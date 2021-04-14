@@ -1,13 +1,13 @@
 # External Images Example
 
-The following project illustrates the MicroEJ external resources loader feature by displaying
+The following project illustrates the use of [MicroEJ External Resources Loader](https://docs.microej.com/en/latest/PlatformDeveloperGuide/externalResourceLoader.html) by displaying
 images supposed to be in the external resources (used for resources stored on non-byte-addressable memories).
 
 ## Requirements
 
-- MicroEJ 5.3 or later.
-- MicroEJ UI-pack 13.0.4 or greater
-- Java platform with (at least):
+- MicroEJ SDK 5.3.0 or higher
+- MicroEJ UI Pack 13.0.4 or higher
+- A MicroEJ Platform with (at least):
 	- EDC-1.3.3
 	- MICROUI-3.0.3
 	- Containing at least the module `External Resources Loader`
@@ -26,7 +26,7 @@ This example has been tested on:
 
 - `src/main/c`: C sources.
 
-## Enable the External Resources Loader module in the platform
+## Enable the External Resources Loader Module in the Platform
 
 The External Resources Loader module needs to be activated in the STM32F7508-DK platform before using it.
 In the **stm32f7508_freertos-configuration** project:
@@ -37,7 +37,7 @@ In the **stm32f7508_freertos-configuration** project:
 * Go back to the **Overview** tab
 * Click **Build Platform**
 
-## Configuring the Images heap size
+## Configuring the Images Heap Size
 
 Depending on the size of the image resources used, the MicroUI images heap needs to be increased or decreased.
 In this example, the images heap is already configured to work properly. It has been set to 128Kb.
@@ -50,12 +50,10 @@ To modify the Images heap size:
 * Go to the **Configuration** tab
   * In **MicroUI** section, the **Images heap size** field allows to configure the size of the Images heap.
 
-## Running the application on the simulator
+## Running the Application on Simulator
 
 Using MicroEJ, you may deploy and run your application on an embedded target (if the hardware and related BSP are available) 
 or you may run your application on a Java simulator mimicking the behavior of your embedded target.
-
-## Building for the simulator
 
 * Select **Run > Run Configurations...** menu item
 * Select **MicroEJ Application** group
@@ -75,9 +73,9 @@ or you may run your application on a Java simulator mimicking the behavior of yo
 
 The simulator should start and display the loaded images. Click on the screen to switch between images.
 	
-## Running the application on target
+## Running the Application on Device
 
-### Building for the target
+### Building for the Device
 
 * Select **Run > Run Configurations...** menu item
 * Select **MicroEJ Application** group
@@ -90,7 +88,7 @@ The simulator should start and display the loaded images. Click on the screen to
 			* Notice that "Execute on Device" radio button option is checked
 	* Click on "Run"
 
-### Importing the BSP project
+### Importing the BSP Project
 
 1. Open STM32CubeIDE in an empty workspace
 2. Select **File > Import...**
@@ -101,7 +99,7 @@ The simulator should start and display the loaded images. Click on the screen to
 7. Press **OK**
 8. Press **Finish**
 
-### Adding C sources to the BSP project
+### Adding C Sources to the BSP Project
 
 Some C sources need to be added to the BSP project in order to use the external resources module.
 Those sources are located in the [src/main/c](src/main/c) folder of the repository.
@@ -111,20 +109,20 @@ The [LLEXT_static_array.c](src/main/c/src/LLEXT_static_array.c) file is the low 
 The images located in **ExternalImages/externalResources/images** are stored in C arrays in hexadecimal format.
 They are respectively stored in [robot_image.c](src/main/c/src/robot_image.c) and [logo_image.c](src/main/c/src/logo_image.c).
 
-### Building the BSP project
+### Building the BSP Project
 
 1. In STM32CubeIDE, right-click on the **application** project
 2. Press **Build Project**
 3. Wait for the end of the build
 
-### Flashing the application on the board
+### Flashing the Application on the Board
 
 1. Plug-in your STM32F7508-DK board
 2. In STM32CubeIDE, select **Run > Run Configurations...**
 3. Under **STM32 Cortex-M C/C++ Application**, select the **application_debug** run configuration
 4. Press **Run**
 
-## Loading a resource from a non-byte-addressable memory
+## Loading a Resource from a Non Byte-addressable Memory
 
 Depending on the resource size and on the use case, the resource can be stored either in a byte addressable
 memory or in a non-byte-addressable memory. 
@@ -138,7 +136,7 @@ memory. To simulate a loading from a non-byte addressable memory, uncomment the 
 
 ## License
 
-See the license file `LICENSE.txt` located at the root of this repository.
+See the license file [LICENSE.txt](LICENSE.txt) located at the root of this repository.
 
 ---
 _Markdown_   
