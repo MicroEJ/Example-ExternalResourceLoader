@@ -1,0 +1,13 @@
+# Copyright 2025 MicroEJ Corp. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be found with this software.
+
+[versions]
+microej-sdk = "1.1.0"
+
+[libraries]
+# APIs
+api-edc =                       { group = "ej.api", name = "edc", version = "1.3.7" }
+api-microui =                   { group = "ej.api", name = "microui", version = "3.6.0" }
+
+# Add-on libraries
+library-binary-nls =               { group = "com.microej.library.runtime", name = "binary-nls", version = "3.1.0" }

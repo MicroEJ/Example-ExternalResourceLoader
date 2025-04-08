@@ -1,0 +1,18 @@
+# Copyright 2021-2025 MicroEJ Corp. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be found with this software.
+
+msgid ""
+msgstr ""
+"Language: fr_FR\n"
+"Language-Team: Français\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "HELLO"
+msgstr "Bonjour"
+
+msgid "EVERYONE"
+msgstr "tout le monde"
+
+msgid "HOW_ARE_YOU"
+msgstr "Comment ça va ?"

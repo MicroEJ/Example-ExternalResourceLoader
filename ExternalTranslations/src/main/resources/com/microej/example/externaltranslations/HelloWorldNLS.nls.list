@@ -1,0 +1,6 @@
+# Copyright 2021-2025 MicroEJ Corp. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be found with this software.
+
+# The full qualified name of the generated nls messages. The class name must be the prefix of the .po files.
+com.microej.example.externaltranslations.generated.HelloWorldMessages
+com.microej.example.externaltranslations.generated.HelloWorldMessagesDefault
